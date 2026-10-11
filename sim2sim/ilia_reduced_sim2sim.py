@@ -1,7 +1,7 @@
 # SPDX-License-Identifier: BSD-3-Clause
 """Standalone Isaac Lab ILIA Reduced policy playback in native MuJoCo.
 
-Dependencies: mujoco, numpy, onnxruntime. No Isaac Sim, mjlab, or ILIA SDK.
+Dependencies: mujoco, numpy, onnxruntime.
 """
 
 from __future__ import annotations
@@ -78,8 +78,8 @@ def build_model(params, terrain: str, foot_friction: float) -> mujoco.MjModel:
     mesh_paths = sorted(mesh_dir.glob("*.STL"))
     if len(mesh_paths) != 22:
         raise ValueError(
-            f"Expected 22 robot STL meshes in {mesh_dir}, found {len(mesh_paths)}. "
-            "Install the mesh files before running sim-to-sim."
+            f"Robot model assets are incomplete: expected 22 STL files, "
+            f"found {len(mesh_paths)} in {mesh_dir}."
         )
     spec.assets = {path.name: path.read_bytes() for path in mesh_paths}
 

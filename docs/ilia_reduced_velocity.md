@@ -49,5 +49,4 @@ Physics state, terrain progression, and startup randomization are recreated.
 ## MuJoCo sim to sim
 
 The standalone ONNX playback instructions are documented in
-[sim2sim/README.md](../sim2sim/README.md). It uses MuJoCo directly
-and has no ILIA SDK or DDS dependency.
+[sim2sim/README.md](../sim2sim/README.md).
