@@ -14,6 +14,9 @@
 **/*.usdc
 **/*.usdz
 
+# Private ILIA robot geometry
+/source/ilia_rl_lab/ilia_rl_lab/assets/robots/ilia_reduced/urdf/meshes_reduced/
+
 # Python
 .DS_Store
 **/*.egg-info/

@@ -74,9 +74,13 @@ def build_model(params, terrain: str, foot_friction: float) -> mujoco.MjModel:
         )
 
     spec = mujoco.MjSpec.from_file(str(URDF_PATH))
-    mesh_paths = sorted((URDF_PATH.parent / "meshes_reduced").glob("*.STL"))
+    mesh_dir = URDF_PATH.parent / "meshes_reduced"
+    mesh_paths = sorted(mesh_dir.glob("*.STL"))
     if len(mesh_paths) != 22:
-        raise ValueError(f"Expected 22 robot meshes, found {len(mesh_paths)}")
+        raise ValueError(
+            f"Expected 22 robot STL meshes in {mesh_dir}, found {len(mesh_paths)}. "
+            "Install the mesh files before running sim-to-sim."
+        )
     spec.assets = {path.name: path.read_bytes() for path in mesh_paths}
 
     base = spec.body("base")

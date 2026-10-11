@@ -1,8 +1,15 @@
 # ILIA RL Lab
 
+| Isaac Lab | MuJoCo sim-to-sim | Real robot |
+| :---: | :---: | :---: |
+| [![Isaac Lab playback](media/isaac-lab-preview.gif)](media/isaac-lab.mp4) | [![MuJoCo playback](media/mujoco-preview.gif)](media/mujoco.mp4) | [![Real ILIA robot](media/real-robot-preview.gif)](media/real-robot.mp4) |
+| [Watch Isaac Lab](media/isaac-lab.mp4) | [Watch MuJoCo](media/mujoco.mp4) | [Watch real robot](media/real-robot.mp4) |
+
+Select a preview to open the full, silent video.
+
 Isaac Lab training for the **ILIA Reduced** 19-joint humanoid velocity task, with
 Flat and Rough variants and a separate MuJoCo sim-to-sim evaluator. This
-repository contains the robot asset, task and PPO configurations, validation
+repository contains the robot URDF, task and PPO configurations, validation
 scripts, and an ONNX playback path. It does not require the private ILIA SDK
 for MuJoCo playback.
 
@@ -19,8 +26,8 @@ The control and observation contract is described in
 ## Repository map
 
 - [`source/ilia_rl_lab/ilia_rl_lab/assets/robots/ilia_reduced/`](source/ilia_rl_lab/ilia_rl_lab/assets/robots/ilia_reduced/):
-  URDF and meshes, canonical joint order, motor parameters, and Isaac Lab
-  articulation configuration.
+  URDF and private mesh placement, canonical joint order, motor parameters,
+  and Isaac Lab articulation configuration.
 - [`source/ilia_rl_lab/ilia_rl_lab/tasks/velocity/`](source/ilia_rl_lab/ilia_rl_lab/tasks/velocity/):
   shared commands, observations, rewards, terrain and events.
 - [`source/ilia_rl_lab/ilia_rl_lab/tasks/velocity/config/ilia_reduced/`](source/ilia_rl_lab/ilia_rl_lab/tasks/velocity/config/ilia_reduced/):
@@ -29,6 +36,19 @@ The control and observation contract is described in
   RSL-RL training/playback.
 - [`sim2sim/`](sim2sim/): standalone MuJoCo ONNX playback, dependencies, and
   instructions for evaluating your own exports. It does not launch Isaac Sim.
+
+## Private mesh setup
+
+The 22 reduced ILIA STL meshes referenced by the URDF are **not included** in
+this public repository or its Git history. Obtain them through an authorized
+private source and place them, with their original filenames, in:
+
+```text
+source/ilia_rl_lab/ilia_rl_lab/assets/robots/ilia_reduced/urdf/meshes_reduced/
+```
+
+This directory is ignored by Git. Isaac Lab import and MuJoCo playback require
+these meshes; the URDF and numeric parameters alone are insufficient.
 
 ## Isaac Lab setup and validation
 
@@ -72,9 +92,9 @@ policy path at runtime.
 
 ## MuJoCo sim-to-sim
 
-The MuJoCo runner uses only the public robot asset and numeric parameters in
-this repository, plus MuJoCo, NumPy and ONNX Runtime. Isaac Lab and MuJoCo
-have different contact and actuator implementations, so compare fixed
+The MuJoCo runner uses the repository's URDF and numeric parameters, the
+private meshes placed above, plus MuJoCo, NumPy and ONNX Runtime. Isaac Lab
+and MuJoCo have different contact and actuator implementations, so compare fixed
 commands in both simulators before drawing conclusions about a policy. See
 [sim2sim/README.md](sim2sim/README.md) for setup and commands. Policy exports
 are supplied by the user and are not distributed in this repository.

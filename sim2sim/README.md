@@ -13,13 +13,17 @@ The SDK and any private deployment code are not needed here.
 | --- | --- |
 | `ilia_reduced_sim2sim.py` | MuJoCo model, observation bridge, ONNX inference, control loop, and metrics |
 | `requirements.txt` | Pinned standalone Python dependencies |
-| `../source/ilia_rl_lab/ilia_rl_lab/assets/robots/ilia_reduced/` | Shared URDF, 22 meshes, joint order, default pose, gains, limits, and action scales |
+| `../source/ilia_rl_lab/ilia_rl_lab/assets/robots/ilia_reduced/` | Shared URDF, private mesh placement, joint order, default pose, gains, limits, and action scales |
 | `../logs/rsl_rl/ilia_reduced_velocity_*/.../exported/policy.onnx` | Your own policy export, ignored by Git |
 
 The runner locates the asset from its position in `sim2sim/`. It checks the
 URDF SHA-256, 19 motors, floating base, and approximately 30.181 kg total mass
 before policy inference. If the asset changes deliberately, review the model
 and then update the expected hash in the runner.
+
+The URDF requires 22 STL meshes. They are not part of this public repository;
+place the privately supplied files in the directory described in the
+[project README](../README.md#private-mesh-setup) before running this script.
 
 ## Python environment
 
